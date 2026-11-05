@@ -1,4 +1,4 @@
-import { createPriceChart } from './chart.js?v=liq30';
+import { createPriceChart } from './chart.js?v=liq32';
 import { prepareRound, scoreRound } from './engine.js';
 import { rounds, weekSummary } from './rounds.js?v=liq28';
 
@@ -53,7 +53,8 @@ function result(status, message) {
   el.result.append(label, detail);
 }
 
-const priceChart = createPriceChart(el.chart, { readout: byId('chart-readout'), boundary: byId('chart-boundary') });
+const priceChart = createPriceChart(el.chart, { readout: byId('chart-readout'), boundary: byId('chart-boundary'), partialNotice: byId('chart-partial') });
+byId('chart-timeframe').addEventListener('change', (event) => priceChart.setInterval(Number(event.target.value)));
 byId('chart-reset').addEventListener('click', () => priceChart.resetView());
 byId('chart-zoom-in').addEventListener('click', () => priceChart.zoom(.7));
 byId('chart-zoom-out').addEventListener('click', () => priceChart.zoom(1.4));

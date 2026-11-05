@@ -11,3 +11,5 @@ The full invented series is fixed before any checkpoint is sliced. Future candle
 To view locally, serve this directory with a static HTTP server. The development tests are retained in the private LIQ workspace and are not part of the public Pages artifact.
 
 The chart uses pinned TradingView Lightweight Charts 5.2.1, shipped under `vendor/` with Apache license, release NOTICE and the bundled fancy-canvas MIT license. Its candle pane shows only the closed snapshot until Reveal, with London labels, labelled targets, pan/pinch, zoom/reset controls and a DOM OHLC readout. The chart does not calculate the game result.
+
+Choose 1m, 3m, 5m, 15m or 30m in the chart selector. Only the display is aggregated; scoring always uses the original one-minute bars. Before Reveal an unfinished bucket is labelled with its actual known coverage through 06:46 London. Missing minute data is rejected and sessions are never combined across a pause. UTC bucket keys stay distinct through daylight-saving changes. The interval stays selected during the current visit; refreshing starts at 1m.

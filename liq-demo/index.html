@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LIQ · practice demo</title>
-  <link rel="stylesheet" href="./style.css?v=liq30">
+  <link rel="stylesheet" href="./style.css?v=liq32">
 </head>
 <body>
   <header class="masthead"><div class="masthead-brand"><strong>LIQ</strong><span><b>Practice game</b><small>Five made-up trading days</small></span></div></header>
@@ -35,8 +35,9 @@
         <nav class="stage-strip sr-only" aria-label="Round stages"><div id="stage-snapshot" class="stage"></div><div id="stage-choice" class="stage"></div><div id="stage-reveal" class="stage"></div></nav>
         <div class="workspace">
           <section class="card snapshot-card" aria-labelledby="snapshot-heading"><div class="card-head"><h2 id="snapshot-heading">Price chart</h2><span class="card-state">BEFORE</span></div><div class="card-body">
-            <div class="chart-head"><span>1 minute · London time</span><div class="chart-tools"><button id="chart-zoom-out" type="button" aria-label="Zoom out">−</button><button id="chart-zoom-in" type="button" aria-label="Zoom in">+</button><button id="chart-reset" type="button">Reset view</button></div></div>
+            <div class="chart-head"><label class="timeframe-label" for="chart-timeframe">London · <select id="chart-timeframe" aria-label="Chart timeframe"><option value="1">1m</option><option value="3">3m</option><option value="5">5m</option><option value="15">15m</option><option value="30">30m</option></select></label><div class="chart-tools"><button id="chart-zoom-out" type="button" aria-label="Zoom out">−</button><button id="chart-zoom-in" type="button" aria-label="Zoom in">+</button><button id="chart-reset" type="button">Reset view</button></div></div>
             <div class="chart-wrap"><div id="chart" role="img" aria-label="No chart loaded."></div><div id="chart-boundary" aria-hidden="true"><span>06:46</span></div></div>
+            <p id="chart-partial" class="chart-partial" role="status" hidden></p>
             <p id="chart-readout" class="chart-readout">Press Play to see prices.</p>
             <p class="chart-attribution">TradingView Lightweight Charts™<br>Copyright (с) 2025 <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView, Inc.</a> · <a href="./vendor/LICENSE-lightweight-charts-5.2.1.txt">License</a></p>
             <details class="sample-details"><summary>Sample details</summary><div id="metadata" class="metadata" aria-live="polite"></div><h3>Reference only</h3><ul id="context-list"><li>Choose a sample first.</li></ul></details>
@@ -62,6 +63,6 @@
       <footer>LIQ practice demo · invented prices only</footer>
     </main>
   </div>
-  <script type="module" src="./src/app.js?v=liq30"></script>
+  <script type="module" src="./src/app.js?v=liq32"></script>
 </body>
 </html>

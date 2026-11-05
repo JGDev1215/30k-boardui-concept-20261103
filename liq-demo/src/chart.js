@@ -1,8 +1,10 @@
 import { createChart, CandlestickSeries, ColorType, LineStyle, createSeriesMarkers } from '../vendor/lightweight-charts-5.2.1.standalone.production.mjs';
-import { chartData, initialRange, londonLabel, londonDetail } from './chart-data.js';
+import { chartData, initialRange, londonLabel, londonDetail } from './chart-data.js?v=liq32';
 
-export function createPriceChart(container, { readout, boundary }) {
+export function createPriceChart(container, { readout, boundary, partialNotice }) {
   let model = null;
+  let lastInput = null;
+  let interval = 1;
   let selectedId = null;
   let lines = [];
   let needsFit = false;
@@ -35,15 +37,17 @@ export function createPriceChart(container, { readout, boundary }) {
   let candleMap = new Map();
 
   function describeCandle(bar) {
-    readout.textContent = bar ? `${londonDetail(bar.time)} · O ${bar.open.toFixed(2)} H ${bar.high.toFixed(2)} L ${bar.low.toFixed(2)} C ${bar.close.toFixed(2)}`
+    readout.textContent = bar ? `${model.event === bar.time && model.eventAt !== null ? `Result ${londonLabel(model.eventAt)} · ` : ""}${londonDetail(bar.first)}–${londonLabel(bar.end)}${bar.partial ? " · Partial" : ""} · O ${bar.open.toFixed(2)} H ${bar.high.toFixed(2)} L ${bar.low.toFixed(2)} C ${bar.close.toFixed(2)}`
       : 'Open a scenario to see prices.';
   }
 
   function positionBoundary() {
     if (!model) { boundary.hidden = true; return; }
-    const at = chart.timeScale().timeToCoordinate(model.read);
-    const previous = chart.timeScale().timeToCoordinate(model.read - 60);
-    const x = at === null || previous === null ? null : (at + previous) / 2;
+    // v5.2.1 accepts integer logical indices; interpolate adjacent coordinates.
+    const index = Math.floor(model.cutoff);
+    const left = chart.timeScale().logicalToCoordinate(index);
+    const right = chart.timeScale().logicalToCoordinate(index + 1);
+    const x = left === null || right === null ? null : left + (right - left) * (model.cutoff - index);
     const plotWidth = chart.timeScale().width();
     boundary.hidden = x === null || x < 0 || x > plotWidth;
     if (!boundary.hidden) boundary.style.left = `${x}px`;
@@ -70,14 +74,20 @@ export function createPriceChart(container, { readout, boundary }) {
   }
 
   function show(input) {
-    model = chartData(input);
+    lastInput = input;
+    model = chartData({ ...input, interval });
     selectedId = input.selectedId ?? null;
     candleMap = new Map(model.candles.map((bar) => [bar.time, bar]));
     series.setData(model.data);
     updateLines();
-    markers.setMarkers(model.event === null ? [] : [{ time: model.event, position: 'aboveBar', color: '#ffda83', shape: 'circle', text: 'Result' }]);
-    container.setAttribute('aria-label', `${model.revealed ? 'Revealed' : 'Before choice'} synthetic one-minute chart. ${model.candles.length} candles. Times are London.`);
+    markers.setMarkers(model.event === null ? [] : [{ time: model.event, position: 'aboveBar', color: '#ffda83', shape: 'circle', text: `Result ${londonLabel(model.eventAt)}` }]);
+    container.setAttribute('aria-label', `${model.revealed ? 'Revealed' : 'Before choice'} synthetic ${model.interval}-minute chart. ${model.candles.length} candles. Times are London.`);
     container.dataset.barCount = String(model.candles.length);
+    container.dataset.sourceMinutes = String(model.sourceMinutes);
+    container.dataset.sourceLast = String(model.sourceLast);
+    container.dataset.interval = String(interval);
+    partialNotice.textContent = model.partialNotice;
+    partialNotice.hidden = !model.partialNotice;
     container.dataset.lastBar = String(model.candles.at(-1)?.time ?? '');
     describeCandle(candleMap.get(model.event) ?? model.candles.at(-1));
     resetView();
@@ -97,6 +107,10 @@ export function createPriceChart(container, { readout, boundary }) {
 
   return {
     show, resetView,
+    setInterval(value) {
+      interval = value;
+      if (lastInput) show({ ...lastInput, selectedId });
+    },
     select(id) { selectedId = id; updateLines(); },
     zoom(factor) {
       const range = chart.timeScale().getVisibleLogicalRange();
@@ -106,8 +120,10 @@ export function createPriceChart(container, { readout, boundary }) {
       chart.timeScale().setVisibleLogicalRange({ from: middle - half, to: middle + half });
     },
     clear() {
-      model = null; selectedId = null; candleMap.clear(); series.setData([]); markers.setMarkers([]); updateLines();
+      lastInput = null; model = null; selectedId = null; candleMap.clear(); series.setData([]); markers.setMarkers([]); updateLines();
       boundary.hidden = true; readout.textContent = 'Open a scenario to see prices.';
+      partialNotice.textContent = ''; partialNotice.hidden = true;
+      container.dataset.sourceMinutes = '0';
       container.dataset.barCount = '0'; container.dataset.lastBar = '';
     },
     destroy() { observer.disconnect(); chart.remove(); },
