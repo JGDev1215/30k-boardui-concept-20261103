@@ -8,4 +8,4 @@ The sample catalog has only the current simulated session high and low. It marks
 
 The full invented series is fixed before any checkpoint is sliced. Future candles are hidden by the interface until Reveal, but anyone can inspect them in these public static files; the lock is illustrative. Choices are neither transmitted nor saved. No historical database, receipt, secret or HQ file belongs in the published artifact.
 
-To test locally, serve this directory with a static HTTP server and run `node --test tests/*.test.mjs` from this directory.
+To view locally, serve this directory with a static HTTP server. The development tests are retained in the private LIQ workspace and are not part of the public Pages artifact.
