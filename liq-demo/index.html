@@ -3,81 +3,66 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LIQ · synthetic mobile demo</title>
-  <link rel="stylesheet" href="./style.css?v=liq24">
+  <title>LIQ · practice demo</title>
+  <link rel="stylesheet" href="./style.css?v=liq25">
 </head>
 <body>
-  <header class="masthead">
-    <div class="masthead-brand"><strong>LIQ</strong><span><b>Synthetic Liquidity Learning Demo</b><small>Try the LIQ layout and decision flow with invented prices only.</small></span></div>
-    <div class="masthead-facts" aria-label="Product scope"><span><b>▤</b> Synthetic demo<small>Public sample</small></span><span><b>▥</b> No market data<small>No live data</small></span><span><b>◎</b> Decision and review<small>When qualified</small></span></div>
-  </header>
-
+  <header class="masthead"><div class="masthead-brand"><strong>LIQ</strong><span><b>Practice game</b><small>Two made-up rounds</small></span></div></header>
   <div class="app-shell">
-    <aside class="sidebar" aria-label="Main navigation"><div class="sidebar-brand">LIQ <small>LEARNING WORKSPACE</small></div>
+    <aside class="sidebar" aria-label="Main navigation">
       <nav class="side-nav" aria-label="Views">
-        <button type="button" data-view="start"><span aria-hidden="true">▷</span> Start</button>
-        <button type="button" data-view="checkpoint" aria-current="page"><span aria-hidden="true">▥</span> Checkpoint</button>
-        <button type="button" data-view="status"><span aria-hidden="true">◉</span> Data status</button>
-        <button type="button" data-view="history"><span aria-hidden="true">◷</span> History</button>
+        <button type="button" data-view="start">Start</button>
+        <button type="button" data-view="checkpoint">Play</button>
+        <button type="button" data-view="status">About</button>
       </nav>
-      <p class="sidebar-foot">SIM · 1-minute<br>Two invented rounds</p>
     </aside>
-
     <main class="main-content">
       <section id="view-start" class="view" aria-labelledby="start-heading" hidden>
-        <div class="start-hero"><div class="eyebrow">Synthetic preview</div><h1 id="start-heading">Practice the LIQ decision flow.</h1><p>Choose an invented round, inspect its checkpoint, lock a target, then reveal the invented continuation. No real market prices or orders are involved.</p></div>
-        <div class="start-grid">
-          <section class="card start-form" aria-labelledby="start-form-heading"><div class="card-head"><div><div class="eyebrow">Start</div><h2 id="start-form-heading">Open a checkpoint</h2></div><span class="card-state">SIM · 1 MINUTE</span></div><div class="card-body">
-            <label for="analysis-date">Synthetic scenario</label><select id="analysis-date"><option value="2026-01-01">Scenario A · target first</option><option value="2026-01-02">Scenario B · opposing draw first</option></select>
-            <div class="fixed-fields"><div><small>Instrument</small><strong>SIM</strong></div><div><small>Checkpoint</small><strong>00:03 UTC</strong></div><div><small>Comparison end</small><strong>00:08 UTC</strong></div></div>
-            <p class="hint">Select a scenario to open it immediately, or tap Open checkpoint for the selected one. Every value is invented; no API or database is used.</p>
-            <button id="load-checkpoint" type="button" class="primary-action">Open checkpoint <span aria-hidden="true">→</span></button>
-          </div></section>
-          <section class="card availability-card" aria-labelledby="availability-heading"><div class="card-head"><div><div class="eyebrow">Observed data</div><h2 id="availability-heading">Data availability</h2></div></div><div class="card-body"><div id="start-availability" class="availability-state" role="status">Synthetic demo ready</div><p id="start-coverage" class="hint">Select either scenario to inspect its invented checkpoint.</p><p class="quiet-note">A public static site cannot hide downloadable continuation data or enforce a server-side lock.</p></div></section>
-        </div>
+        <div class="start-hero"><h1 id="start-heading">Pick a practice round</h1><p>Choose a sample, pick a target, lock it, then see what happened.</p></div>
+        <section class="card start-form" aria-labelledby="start-form-heading"><div class="card-body">
+          <h2 id="start-form-heading">Choose a sample</h2>
+          <label for="analysis-date">Sample round</label>
+          <select id="analysis-date"><option value="2026-01-01">Sample 1</option><option value="2026-01-02">Sample 2</option></select>
+          <p class="hint">Changing the sample opens it right away.</p>
+          <button id="load-checkpoint" type="button" class="primary-action">Play selected sample</button>
+          <div id="start-availability" class="sr-only" role="status">Ready</div>
+          <div id="start-coverage" class="sr-only"></div>
+        </div></section>
+        <p class="simple-disclosure">Made-up prices only. In this public demo, the future path can be found in the page files.</p>
       </section>
 
       <section id="view-checkpoint" class="view" aria-labelledby="checkpoint-heading">
-        <div class="view-top"><div><div class="eyebrow">Synthetic checkpoint · step 1 of 3</div><h1 id="checkpoint-heading">Invented price at the read.</h1><p>The visible chart stops at the invented read. Choose a draw before the interface reveals the invented later path.</p></div><span id="phase-status" class="phase-status" role="status">Synthetic demo ready</span></div>
-        <div class="checkpoint-bar"><span id="checkpoint-date">Synthetic scenario</span><span>Read 00:03 UTC</span><span>End 00:08 UTC</span><button type="button" data-view="start">Choose scenario</button></div>
-        <p class="notice"><strong>Synthetic demo only.</strong> All bars and levels are invented. The lock controls this interface, but static files are publicly downloadable and cannot enforce future-price secrecy.</p>
-        <nav class="stage-strip" aria-label="Round stages"><div id="stage-snapshot" class="stage" aria-current="step"><span class="stage-number">1</span><span><strong>Checkpoint</strong><small>Invented prices</small></span></div><div id="stage-choice" class="stage" data-state="locked"><span class="stage-number">2</span><span><strong>Choose and lock</strong><small>Target and opponents</small></span></div><div id="stage-reveal" class="stage" data-state="locked"><span class="stage-number">3</span><span><strong>Reveal</strong><small>Outcome after lock</small></span></div></nav>
-
+        <div class="view-top"><div><h1 id="checkpoint-heading">Pick a target</h1><p>Which level will price touch before the other side?</p></div><span id="phase-status" class="phase-status" role="status">Choose a sample</span></div>
+        <div class="checkpoint-bar"><strong id="checkpoint-date">Sample round</strong><button type="button" data-view="start">Change sample</button></div>
+        <p class="simple-disclosure">Made-up prices. This public demo cannot truly hide the future path.</p>
+        <nav class="stage-strip sr-only" aria-label="Round stages"><div id="stage-snapshot" class="stage"></div><div id="stage-choice" class="stage"></div><div id="stage-reveal" class="stage"></div></nav>
         <div class="workspace">
-          <section class="card snapshot-card" aria-labelledby="snapshot-heading"><div class="card-head"><div><div class="eyebrow">Invented prices · before read</div><h2 id="snapshot-heading">SIM one-minute chart</h2></div><span class="card-state">NO FUTURE BARS</span></div><div class="card-body">
-            <div class="chart-head"><span>Invented scenario · UTC chart times</span><span class="chart-legend">00:03 UTC read cutoff</span></div>
-            <div class="chart-wrap" role="region" tabindex="0" aria-label="Synthetic price chart. Scroll sideways on a narrow screen to inspect full-size detail."><svg id="chart" role="img" aria-label="Synthetic chart. No prices loaded."></svg></div>
-            <p class="chart-scroll-hint">Scroll the chart sideways for detail. Continuation prices appear after reveal.</p>
-            <div id="metadata" class="metadata" aria-live="polite">Open either synthetic scenario to load invented prices.</div>
-            <div class="inventory"><div class="level-panel"><h3>Eligible draws · tap to choose</h3><ul id="eligible-list"><li>Choose a synthetic scenario to view invented draws.</li></ul></div><div class="level-panel"><h3>Context and excluded</h3><ul id="context-list"><li>Reference levels appear with a synthetic scenario.</li></ul></div></div>
-          </div></section>
-
           <div class="decision-stack">
-            <section class="card choice-card" aria-labelledby="choice-heading"><div class="card-head"><div><div class="eyebrow">Step 2 · decision</div><h2 id="choice-heading">Your decision</h2></div><span class="gate-label">CHOOSE TARGET</span></div><div class="card-body">
-              <p class="hint">Choose one invented target after opening a scenario.</p>
-              <label for="target">Chosen target</label><select id="target" aria-describedby="opponents" disabled><option value="">Open a scenario first</option></select>
-              <div class="subhead">Opposing draws</div><div id="opponents" class="opponents" role="region" tabindex="0" aria-label="Opposing draws" aria-live="polite">Open a scenario to see its invented opposing draws.</div>
-              <label for="rationale">Why this draw? <span class="optional">Optional demo note</span></label><textarea id="rationale" rows="3" placeholder="Why did you choose this invented target?" disabled></textarea>
-              <div class="actions"><button id="lock" type="button" disabled>Lock prediction</button><button id="reveal" type="button" class="secondary" disabled>Reveal outcome</button><button id="pass" type="button" class="secondary" disabled>Pass / no call</button><button id="reset" type="button" class="quiet">Clear checkpoint</button></div>
+            <section class="card choice-card" aria-labelledby="choice-heading"><div class="card-head"><h2 id="choice-heading">Tap one target</h2></div><div class="card-body">
+              <ul id="eligible-list" class="target-list" aria-label="Targets"><li>Choose a sample to see targets.</li></ul>
+              <select id="target" hidden disabled aria-hidden="true"><option value="">Tap a target</option></select>
+              <textarea id="rationale" hidden disabled></textarea>
+              <div class="subhead">Other side</div><div id="opponents" class="opponents" role="status" aria-live="polite">Choose a sample first.</div>
+              <div class="actions"><button id="lock" type="button" disabled>Lock choice</button><button id="reveal" type="button" class="secondary" disabled>Reveal result</button><button id="pass" type="button" class="secondary" disabled>Skip</button><button id="reset" type="button" class="quiet">New round</button></div>
               <div id="locked" class="locked" aria-live="polite"></div>
-            </div></section>
-            <section class="card reveal-card" aria-labelledby="reveal-heading"><div class="card-head"><div><div class="eyebrow">Step 3 · after lock</div><h2 id="reveal-heading">Reveal and score</h2></div><span class="gate-label">AFTER LOCK</span></div><div class="card-body">
-              <p class="hint">The interface withholds the invented path until you lock. Static assets remain inspectable.</p>
-              <div id="result" class="result UNAVAILABLE" role="status" aria-live="polite"><strong>UNAVAILABLE</strong><span>Open a synthetic scenario to begin.</span></div>
+              <div id="result" class="result UNAVAILABLE" role="status" aria-live="polite"><strong>READY</strong><span>Pick a target to begin.</span></div>
             </div></section>
           </div>
+          <section class="card snapshot-card" aria-labelledby="snapshot-heading"><div class="card-head"><h2 id="snapshot-heading">Price chart</h2><span class="card-state">BEFORE</span></div><div class="card-body">
+            <div class="chart-head"><span class="eyebrow">Made-up prices · before choice</span><span class="chart-legend">Read 00:03 UTC</span></div>
+            <div class="chart-wrap" role="region" tabindex="0" aria-label="Made-up price chart. Scroll sideways for detail."><svg id="chart" role="img" aria-label="No chart loaded."></svg></div>
+            <p class="chart-scroll-hint">Swipe chart sideways for detail.</p>
+            <details class="sample-details"><summary>Sample details</summary><div id="metadata" class="metadata" aria-live="polite"></div><h3>Reference only</h3><ul id="context-list"><li>Choose a sample first.</li></ul></details>
+          </div></section>
         </div>
       </section>
 
-      <section id="view-status" class="view" aria-labelledby="status-heading" hidden><div class="view-top"><div><div class="eyebrow">Source and coverage</div><h1 id="status-heading">Data status.</h1><p>Inspect the invented scenario and static-hosting limits.</p></div></div>
-        <section class="card status-card"><div class="card-head"><h2>Selected checkpoint</h2><span class="gate-label">READ-ONLY</span></div><div class="card-body"><p id="status-meta">No synthetic scenario opened.</p><div class="quality-grid"><div><small>Prefix coverage</small><strong id="status-coverage">—</strong></div><div><small>Source identity</small><strong id="status-identity">Invented</strong></div><div><small>Draw inventory</small><strong id="status-inventory">Demo only</strong></div></div><div class="result UNAVAILABLE"><strong>STATUS</strong><span id="status-reason">Scenario inventory is invented for interface testing.</span></div></div></section>
+      <section id="view-status" class="view" aria-labelledby="status-heading" hidden><div class="view-top"><div><h1 id="status-heading">About this demo</h1><p>Practice the decision flow with made-up prices.</p></div></div>
+        <section class="card status-card"><div class="card-body"><p>The levels and price bars are invented. This is a public static page, so its future data can be inspected before you lock a choice. It does not place trades or save your decisions.</p><details><summary>Technical sample info</summary><p id="status-meta">No sample open.</p><p id="status-coverage">—</p><p id="status-identity">Invented</p><p id="status-inventory">Demo only</p><p id="status-reason">No real market data.</p></details></div></section>
       </section>
-
-      <section id="view-history" class="view" aria-labelledby="history-heading" hidden><div class="view-top"><div><div class="eyebrow">Review</div><h1 id="history-heading">Round history.</h1><p>This public demo stores no history or personal decisions.</p></div></div><section class="card empty-history"><div class="card-body"><strong>No saved rounds</strong><p>Reset or reload to practice again. No real outcome or history is saved.</p><button type="button" data-view="checkpoint">Return to checkpoint</button></div></section></section>
-
-      <footer>Public synthetic preview · No real prices · Static lock is not secure</footer>
+      <footer>LIQ practice demo · invented prices only</footer>
     </main>
   </div>
-  <script type="module" src="./src/app.js?v=liq24b"></script>
+  <script type="module" src="./src/app.js?v=liq25"></script>
 </body>
 </html>

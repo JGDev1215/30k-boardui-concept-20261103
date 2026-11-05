@@ -2,7 +2,7 @@
 export const rounds = [
   {
     "id": "2026-01-01",
-    "label": "Scenario A \u00b7 target first",
+    "label": "Sample 1",
     "snapshot": {
       "fixture_notice": "SYNTHETIC TEST VALUES ONLY; NOT HISTORICAL MARKET DATA",
       "schema_version": 1,
@@ -39,7 +39,7 @@ export const rounds = [
       "levels": [
         {
           "id": "PDH",
-          "label": "Example prior-day high",
+          "label": "Yesterday's high",
           "kind": "POOL",
           "side": "BUY",
           "trigger": 102,
@@ -49,7 +49,7 @@ export const rounds = [
         },
         {
           "id": "BUY_OTHER",
-          "label": "Example nearer buy-side pool",
+          "label": "Near high",
           "kind": "POOL",
           "side": "BUY",
           "trigger": 101,
@@ -59,7 +59,7 @@ export const rounds = [
         },
         {
           "id": "ASIA_LOW",
-          "label": "Example Asia low",
+          "label": "Asia low",
           "kind": "POOL",
           "side": "SELL",
           "trigger": 98,
@@ -69,7 +69,7 @@ export const rounds = [
         },
         {
           "id": "NWOG",
-          "label": "Example gap near edge",
+          "label": "Gap edge",
           "kind": "GAP",
           "side": "SELL",
           "trigger": 97,
@@ -82,7 +82,7 @@ export const rounds = [
         },
         {
           "id": "MIDNIGHT_OPEN",
-          "label": "Example opening-price reference",
+          "label": "Opening price",
           "kind": "REFERENCE",
           "side": "BUY",
           "trigger": 101.5,
@@ -140,7 +140,7 @@ export const rounds = [
   },
   {
     "id": "2026-01-02",
-    "label": "Scenario B \u00b7 opposing draw first",
+    "label": "Sample 2",
     "snapshot": {
       "fixture_notice": "SYNTHETIC TEST VALUES ONLY; NOT HISTORICAL MARKET DATA",
       "schema_version": 1,
@@ -177,7 +177,7 @@ export const rounds = [
       "levels": [
         {
           "id": "PDH",
-          "label": "Example prior-day high",
+          "label": "Yesterday's high",
           "kind": "POOL",
           "side": "BUY",
           "trigger": 102,
@@ -187,7 +187,7 @@ export const rounds = [
         },
         {
           "id": "BUY_OTHER",
-          "label": "Example nearer buy-side pool",
+          "label": "Near high",
           "kind": "POOL",
           "side": "BUY",
           "trigger": 101,
@@ -197,7 +197,7 @@ export const rounds = [
         },
         {
           "id": "ASIA_LOW",
-          "label": "Example Asia low",
+          "label": "Asia low",
           "kind": "POOL",
           "side": "SELL",
           "trigger": 98,
@@ -207,7 +207,7 @@ export const rounds = [
         },
         {
           "id": "NWOG",
-          "label": "Example gap near edge",
+          "label": "Gap edge",
           "kind": "GAP",
           "side": "SELL",
           "trigger": 97,
@@ -220,7 +220,7 @@ export const rounds = [
         },
         {
           "id": "MIDNIGHT_OPEN",
-          "label": "Example opening-price reference",
+          "label": "Opening price",
           "kind": "REFERENCE",
           "side": "BUY",
           "trigger": 101.5,

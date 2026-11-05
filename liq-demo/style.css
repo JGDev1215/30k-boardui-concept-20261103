@@ -31,3 +31,63 @@ footer{margin-top:18px;color:#8da9b1;font-size:.68rem}
 @media(max-width:960px){.masthead-facts{display:none}.app-shell{grid-template-columns:1fr;min-height:0}.sidebar{display:flex;align-items:center;gap:15px;border-right:0;border-bottom:1px solid var(--line);padding:8px 12px}.sidebar-brand{padding:0;white-space:nowrap;font-size:.94rem}.sidebar-brand small,.sidebar-foot{display:none}.side-nav{display:flex;gap:4px;overflow-x:auto;min-width:0}.side-nav button{white-space:nowrap;width:auto;padding:7px 9px}.workspace{grid-template-columns:1fr}.decision-stack{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-wrap{height:320px}.chart-wrap svg{height:316px}}
 @media(max-width:690px){.masthead{padding:11px 12px;min-height:62px}.masthead-brand>strong{font-size:1.8rem}.masthead-brand b{font-size:.8rem}.masthead-brand small{display:none}.sidebar{padding:7px 9px}.sidebar-brand{display:none}.side-nav{width:100%;justify-content:space-between}.side-nav button{font-size:.67rem;gap:5px;padding:7px 6px}.side-nav button span{font-size:.85rem;width:14px}.main-content{padding:14px 10px 28px}.view-top{align-items:start;flex-direction:column;gap:7px}.view-top h1{font-size:1.53rem}.view-top p{font-size:.73rem}.phase-status{font-size:.62rem;padding:6px 8px}.checkpoint-bar{gap:5px}.checkpoint-bar span,.checkpoint-bar button{font-size:.61rem;padding:5px 6px}.notice{font-size:.66rem}.stage-strip{gap:5px}.stage{padding:6px 5px;gap:5px}.stage-number{width:21px;height:21px;font-size:.62rem}.stage strong{font-size:.6rem}.stage small{display:none}.workspace,.decision-stack,.start-grid{grid-template-columns:1fr}.card-head{padding:10px}.card-body{padding:11px}.card-state,.gate-label{font-size:.5rem;padding:4px 5px}.chart-wrap{height:293px}.chart-wrap svg{height:290px}.chart-scroll-hint{display:block}.inventory{grid-template-columns:1fr;gap:8px}.actions button{flex:1 1 100%}.actions button.secondary,.actions button.quiet{flex:1 1 calc(50% - 5px)}.start-hero{padding:18px 5px}.start-form .card-body,.availability-card .card-body{padding:13px}.fixed-fields,.quality-grid{gap:5px}.fixed-fields>div,.quality-grid>div{padding:7px}.fixed-fields strong,.quality-grid strong{font-size:.65rem}.fixed-fields small,.quality-grid small{font-size:.56rem}}
 @media(max-width:690px){select,.side-nav button,button:not(.side-nav button){min-height:44px}}
+
+/* LIQ-25: keep the public game focused on one action at a time. */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.app-shell{grid-template-columns:132px minmax(0,1fr)}
+.sidebar{padding-top:16px}
+.main-content{max-width:1180px;width:100%;margin:auto}
+.workspace{grid-template-columns:minmax(290px,.85fr) minmax(0,1.5fr)}
+.start-form{max-width:500px;margin:0 auto}
+.start-hero{padding:22px 12px 18px}
+.start-form h2{margin-bottom:16px}
+.start-form select{font-size:1rem;min-height:48px}
+.start-form .hint{margin:8px 0 16px}
+.simple-disclosure{color:#c7d5d7;font-size:.72rem;line-height:1.45;margin:12px 0 16px}
+#view-start>.simple-disclosure{max-width:500px;margin:15px auto}
+.checkpoint-bar{justify-content:space-between}
+.checkpoint-bar strong{padding:9px 0;font-size:.83rem}
+.checkpoint-bar button{margin-left:auto}
+.target-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.target-list li{padding:0}
+.target-list button{display:block;width:100%;min-height:48px;text-align:left;background:#102b32;border-color:#436a70;color:#d3e7e9;font-weight:700}
+.target-list button[aria-pressed="true"]{background:#176652;border-color:var(--mint);color:#fff}
+.target-list button:disabled{opacity:.72}
+.choice-card .subhead{margin-top:16px}
+.opponents{min-height:44px}
+.actions{margin-top:16px}
+.actions #lock,.actions #reveal{flex:1 1 100%;font-size:.85rem;min-height:48px}
+.actions #pass,.actions #reset{flex:1 1 calc(50% - 4px);min-height:44px}
+.result.UNAVAILABLE{display:none}
+.result{margin-top:12px;padding:14px}
+.result strong{font-size:1.1rem}
+.sample-details{margin-top:13px;color:#b9cdd1;font-size:.73rem}
+.sample-details summary,.status-card summary{cursor:pointer;color:#bcf0dd;font-weight:750}
+.sample-details h3{margin:13px 0 4px}
+.sample-details ul{padding-left:19px}
+.sample-details .metadata{max-height:none}
+.snapshot-card .chart-wrap{height:270px}
+.snapshot-card .chart-wrap svg{height:266px}
+@media(max-width:960px){.app-shell{grid-template-columns:1fr}.workspace{grid-template-columns:1fr}.decision-stack{grid-template-columns:1fr}}
+@media(max-width:690px){
+  .masthead{min-height:58px;padding:9px 13px}
+  .masthead-brand>strong{font-size:1.7rem}
+  .masthead-brand b{font-size:.85rem}
+  .masthead-brand small{display:none}
+  .sidebar{padding:6px 10px}
+  .side-nav{justify-content:flex-start;gap:8px}
+  .side-nav button{min-height:42px;min-width:66px;justify-content:center;font-size:.74rem}
+  .main-content{padding:15px 12px 25px}
+  .view-top h1,.start-hero h1{font-size:1.55rem}
+  .view-top p,.start-hero p{font-size:.82rem}
+  .phase-status{white-space:normal}
+  .checkpoint-bar{margin-bottom:6px}
+  .simple-disclosure{font-size:.68rem;margin:9px 0 13px}
+  .start-hero{padding:15px 0 18px;text-align:left}
+  .start-form .card-body{padding:16px}
+  .choice-card .card-body{padding:13px}
+  .snapshot-card .chart-wrap{height:220px}
+  .snapshot-card .chart-wrap svg{height:216px}
+  .chart-head{font-size:.61rem}
+  .target-list button{font-size:.78rem}
+}
