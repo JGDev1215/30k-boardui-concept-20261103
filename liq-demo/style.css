@@ -94,3 +94,21 @@ footer{margin-top:18px;color:#8da9b1;font-size:.68rem}
   .chart-head{font-size:.61rem}
   .target-list button{font-size:.78rem}
 }
+
+/* LIQ-30: one responsive chart, with the decision immediately below on phones. */
+.workspace{grid-template-columns:minmax(0,1.5fr) minmax(290px,.85fr)}
+.snapshot-card{order:-1;min-width:0;width:100%}
+.snapshot-card .chart-wrap{height:330px;overflow:hidden;position:relative;background:#0c1722}
+#chart{width:100%;height:100%}
+.chart-tools{display:flex;gap:5px;align-items:center}
+.chart-tools button{min-width:40px;min-height:36px;padding:5px 8px!important;background:#16323d!important;font-size:.7rem!important}
+.chart-head{align-items:center;font-size:.73rem;flex-wrap:wrap}
+.chart-readout{font-size:.73rem;font-variant-numeric:tabular-nums;min-height:2.8em;color:#d5e7eb;margin:8px 0 4px;line-height:1.4}
+.chart-attribution{font-size:.65rem;line-height:1.5;color:#9bb3bd;margin:8px 0 0}
+.chart-attribution a{color:#b9e3e4}
+#chart-boundary{position:absolute;top:0;bottom:28px;border-left:1px dashed #e6bd68;pointer-events:none;display:block;z-index:3}
+#chart-boundary[hidden]{display:none}
+#chart-boundary span{position:absolute;right:4px;top:4px;background:#1d2d3b;color:#f1cd84;font-size:11px;padding:2px 4px;border-radius:3px}
+button:focus-visible,a:focus-visible{outline:2px solid #f0cf86;outline-offset:3px}
+@media(max-width:960px){.workspace{display:flex;flex-direction:column;align-items:stretch}.snapshot-card .chart-wrap{height:320px}}
+@media(max-width:690px){.chart-tools button{min-width:44px;min-height:44px}.snapshot-card .chart-wrap{height:310px}.chart-readout{font-size:.7rem}.simple-disclosure{margin:6px 0 10px}}

@@ -9,3 +9,5 @@ The sample catalog has only the current simulated session high and low. It marks
 The full invented series is fixed before any checkpoint is sliced. Future candles are hidden by the interface until Reveal, but anyone can inspect them in these public static files; the lock is illustrative. Choices are neither transmitted nor saved. No historical database, receipt, secret or HQ file belongs in the published artifact.
 
 To view locally, serve this directory with a static HTTP server. The development tests are retained in the private LIQ workspace and are not part of the public Pages artifact.
+
+The chart uses pinned TradingView Lightweight Charts 5.2.1, shipped under `vendor/` with Apache license, release NOTICE and the bundled fancy-canvas MIT license. Its candle pane shows only the closed snapshot until Reveal, with London labels, labelled targets, pan/pinch, zoom/reset controls and a DOM OHLC readout. The chart does not calculate the game result.

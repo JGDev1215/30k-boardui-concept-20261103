@@ -1,3 +1,4 @@
+import { createPriceChart } from './chart.js?v=liq30';
 import { prepareRound, scoreRound } from './engine.js';
 import { rounds, weekSummary } from './rounds.js?v=liq28';
 
@@ -52,84 +53,21 @@ function result(status, message) {
   el.result.append(label, detail);
 }
 
-function svgNode(tag, attributes = {}) {
-  const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
-  for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, String(value));
-  return node;
-}
+const priceChart = createPriceChart(el.chart, { readout: byId('chart-readout'), boundary: byId('chart-boundary') });
+byId('chart-reset').addEventListener('click', () => priceChart.resetView());
+byId('chart-zoom-in').addEventListener('click', () => priceChart.zoom(.7));
+byId('chart-zoom-out').addEventListener('click', () => priceChart.zoom(1.4));
 
 function chart(bars, revealed = false, eventTime = null) {
-  const svg = el.chart;
   document.querySelector('.snapshot-card .card-state').textContent = revealed ? 'AFTER' : 'BEFORE';
-  document.querySelector('.snapshot-card .eyebrow').textContent = revealed ? 'Made-up prices · after choice' : 'Made-up prices · before choice';
-  document.querySelector('.chart-scroll-hint').textContent = revealed
-    ? 'Swipe sideways. The dotted line marks where the round began.'
-    : 'Swipe sideways for detail.';
-  svg.replaceChildren();
-  if (!bars.length) {
-    svg.style.width = '900px';
-    svg.setAttribute('viewBox', '0 0 900 320');
-    const message = svgNode('text', { x: 30, y: 160, fill: '#a9bdd1', 'font-size': 17 });
-    message.textContent = 'Choose a sample to see prices.';
-    svg.append(message);
-    svg.setAttribute('aria-label', message.textContent);
-    return;
-  }
-  const fullCount = bars.length;
-  let visiblePrefix = 0;
-  if (revealed) {
-    const later = bars.slice(round.snapshot.bars.length);
-    const eventIndex = later.findIndex((bar) => bar.time === eventTime);
-    const laterCount = eventIndex < 0 ? later.length : Math.min(later.length, Math.max(90, eventIndex + 25));
-    const prefix = round.snapshot.bars.slice(-45);
-    visiblePrefix = prefix.length;
-    bars = [...prefix, ...later.slice(0, laterCount)];
-  } else {
-    // The whole known morning is inspectable by swiping; begin at the latest bars.
-    bars = [...bars];
-  }
-  const width = Math.max(900, bars.length * 8 + 100);
-  svg.style.width = `${width}px`;
-  svg.setAttribute('viewBox', `0 0 ${width} 320`);
-  const values = bars.flatMap((bar) => [bar.high, bar.low]);
-  let min = Math.min(...values), max = Math.max(...values);
-  const pad = Math.max((max - min) * .12, .5);
-  min -= pad; max += pad;
-  const left = 64, right = width - 70, top = 22, bottom = 280;
-  const x = (index) => left + index * (right - left) / Math.max(bars.length - 1, 1);
-  const y = (price) => bottom - (price - min) * (bottom - top) / (max - min);
-  for (let step = 0; step <= 4; step++) {
-    const price = min + step * (max - min) / 4;
-    const axis = y(price);
-    svg.append(svgNode('line', { x1: left, x2: right, y1: axis, y2: axis, stroke: '#22394c' }));
-    const label = svgNode('text', { x: 4, y: axis + 4, fill: '#8faabd', 'font-size': 11 });
-    label.textContent = price.toFixed(2);
-    svg.append(label);
-  }
-  bars.forEach((bar, index) => {
-    const color = bar.close >= bar.open ? '#75d7c0' : '#e79b9f';
-    svg.append(svgNode('line', { x1: x(index), x2: x(index), y1: y(bar.high), y2: y(bar.low), stroke: color, 'stroke-width': 2 }));
-    svg.append(svgNode('rect', {
-      x: x(index) - 6, y: Math.min(y(bar.open), y(bar.close)), width: 12,
-      height: Math.max(2, Math.abs(y(bar.open) - y(bar.close))), fill: color,
-    }));
-  });
-  if (revealed) {
-    const readIndex = visiblePrefix - 1;
-    const divider = (x(readIndex) + x(readIndex + 1)) / 2;
-    svg.append(svgNode('line', { x1: divider, x2: divider, y1: top, y2: bottom, stroke: '#e6bd68', 'stroke-width': 2, 'stroke-dasharray': '6 5' }));
-  }
-  for (const [position, stamp, anchor] of [[left, bars[0].time, 'start'], [right, bars.at(-1).time, 'end']]) {
-    const label = svgNode('text', { x: position, y: 311, fill: '#a9bdd1', 'font-size': 11, 'text-anchor': anchor });
-    label.textContent = `${londonTime.format(Date.parse(stamp))} London`;
-    svg.append(label);
-  }
-  svg.setAttribute('aria-label', `${revealed ? 'Revealed' : 'Before-choice'} made-up chart showing ${bars.length} of ${fullCount} available minute bars.`);
-  svg.parentElement.scrollLeft = revealed ? 0 : svg.parentElement.scrollWidth;
+  if (!bars.length) { priceChart.clear(); return; }
+  priceChart.show({ snapshot: round.snapshot, levels: round.eligibleLevels,
+    ...(revealed ? { bars, eventTime } : {}), selectedId: el.target.value });
 }
 
 function showOpponents() {
   if (!round) return;
+  priceChart.select(el.target.value);
   for (const button of el.eligible.querySelectorAll('button[data-target-id]')) {
     button.setAttribute('aria-pressed', String(button.dataset.targetId === el.target.value));
   }
@@ -216,6 +154,7 @@ function openScenario() {
   el.statusIdentity.textContent = 'Synthetic';
   el.statusInventory.textContent = `${round.eligibleLevels.length} invented draws`;
   el.statusReason.textContent = 'The public page includes the future path.';
+  setView('checkpoint');
   chart(round.snapshot.bars);
   showOpponents();
   result('READY', 'Pick a target to begin.');
