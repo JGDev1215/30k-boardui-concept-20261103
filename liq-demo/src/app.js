@@ -1,5 +1,5 @@
 import { prepareRound, scoreRound } from './engine.js';
-import { rounds } from './rounds.js';
+import { rounds, weekSummary } from './rounds.js?v=liq26';
 
 // This public demo only simulates a lock in the interface. Its fixture module
 // contains both sides of each invented round and can be inspected at any time.
@@ -55,7 +55,7 @@ function svgNode(tag, attributes = {}) {
   return node;
 }
 
-function chart(bars, revealed = false) {
+function chart(bars, revealed = false, eventTime = null) {
   const svg = el.chart;
   document.querySelector('.snapshot-card .card-state').textContent = revealed ? 'AFTER' : 'BEFORE';
   document.querySelector('.snapshot-card .eyebrow').textContent = revealed ? 'Made-up prices · full path' : 'Made-up prices · before choice';
@@ -70,6 +70,18 @@ function chart(bars, revealed = false) {
     svg.append(message);
     svg.setAttribute('aria-label', message.textContent);
     return;
+  }
+  const fullCount = bars.length;
+  let visiblePrefix = 0;
+  if (revealed) {
+    const later = bars.slice(round.snapshot.bars.length);
+    const eventIndex = later.findIndex((bar) => bar.time === eventTime);
+    const laterCount = Math.min(later.length, Math.max(90, eventIndex + 25));
+    const prefix = round.snapshot.bars.slice(-45);
+    visiblePrefix = prefix.length;
+    bars = [...prefix, ...later.slice(0, laterCount)];
+  } else {
+    bars = bars.slice(-90);
   }
   const values = bars.flatMap((bar) => [bar.high, bar.low]);
   let min = Math.min(...values), max = Math.max(...values);
@@ -95,7 +107,7 @@ function chart(bars, revealed = false) {
     }));
   });
   if (revealed) {
-    const readIndex = round.snapshot.bars.length - 1;
+    const readIndex = visiblePrefix - 1;
     const divider = (x(readIndex) + x(readIndex + 1)) / 2;
     svg.append(svgNode('line', { x1: divider, x2: divider, y1: top, y2: bottom, stroke: '#e6bd68', 'stroke-width': 2, 'stroke-dasharray': '6 5' }));
   }
@@ -104,7 +116,7 @@ function chart(bars, revealed = false) {
     label.textContent = `${stamp.slice(11, 16)} UTC`;
     svg.append(label);
   }
-  svg.setAttribute('aria-label', `${revealed ? 'Full' : 'Before-choice'} made-up chart with ${bars.length} minute bars.`);
+  svg.setAttribute('aria-label', `${revealed ? 'Revealed' : 'Before-choice'} made-up chart showing ${bars.length} of ${fullCount} available minute bars.`);
 }
 
 function showOpponents() {
@@ -143,18 +155,18 @@ function reset() {
   el.opponents.textContent = 'Choose a sample first.';
   el.eligible.replaceChildren();
   el.context.replaceChildren();
-  el.metadata.textContent = 'Choose a sample to see details.';
-  el.checkpointDate.textContent = 'Sample round';
+  el.metadata.textContent = 'Choose a day to see details.';
+  el.checkpointDate.textContent = 'Trading day';
   el.startAvailability.textContent = 'Ready';
   el.startCoverage.textContent = '';
-  el.statusMeta.textContent = 'No sample open.';
+  el.statusMeta.textContent = 'No day open.';
   el.statusCoverage.textContent = '—';
   el.statusIdentity.textContent = 'Invented';
   el.statusInventory.textContent = 'Demo only';
   el.statusReason.textContent = 'The public page cannot hide future data.';
   chart([]);
-  result('UNAVAILABLE', 'Choose a sample to begin.');
-  setStage(0, 'Choose a sample');
+  result('UNAVAILABLE', 'Choose a day to begin.');
+  setStage(0, 'Choose a day');
 }
 
 function openScenario() {
@@ -186,9 +198,9 @@ function openScenario() {
   el.startAvailability.textContent = `${selectedFixture.label} ready`;
   el.startCoverage.textContent = `${round.eligibleLevels.length} targets`;
   el.checkpointDate.textContent = selectedFixture.label;
-  el.metadata.textContent = `${round.snapshot.round_id} · invented minute prices · read ${round.snapshot.read_at} · end ${round.snapshot.end_at} · ${round.eligibleLevels.length} targets. No real market prices.`;
+  el.metadata.textContent = `${selectedFixture.label}: ${round.snapshot.bars.length} one-minute bars before the 12:00 UTC choice and ${selectedFixture.continuation.bars.length} after it. The chart shows the recent part; the whole session sets the high/low and scores the result. All prices are invented.`;
   el.statusMeta.textContent = `${selectedFixture.label} · read ${round.snapshot.read_at} · end ${round.snapshot.end_at}`;
-  el.statusCoverage.textContent = `${round.snapshot.bars.length} invented bars`;
+  el.statusCoverage.textContent = `${round.snapshot.bars.length} before + ${selectedFixture.continuation.bars.length} after · ${weekSummary.barCount} in the week`;
   el.statusIdentity.textContent = 'Synthetic';
   el.statusInventory.textContent = `${round.eligibleLevels.length} invented draws`;
   el.statusReason.textContent = 'The public page includes the future path.';
@@ -236,7 +248,7 @@ function reveal() {
           : label === 'UNOPPOSED' ? 'There was no target on the other side to compare.'
             : 'This sample cannot be scored.';
   result(label, message);
-  chart([...round.snapshot.bars, ...selectedFixture.continuation.bars], true);
+  chart([...round.snapshot.bars, ...selectedFixture.continuation.bars], true, outcome.eventTime);
   const chosen = round.eligibleLevels.find((level) => level.id === lock.targetId);
   el.locked.textContent = `Your choice: ${chosen?.label ?? 'target'}.`;
   el.reveal.disabled = true;
@@ -247,7 +259,7 @@ function reveal() {
 
 function pass() {
   if (!round || lock) return;
-  result('PASS', 'Skipped this sample. Tap New round to try again.');
+  result('PASS', 'Skipped this day. Tap New round to try again.');
   el.target.disabled = true;
   for (const button of el.eligible.querySelectorAll('button')) button.disabled = true;
   el.rationale.disabled = true;

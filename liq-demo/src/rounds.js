@@ -1,279 +1,85 @@
-// Entirely invented prices and levels. Public static demo; not historical market data.
-export const rounds = [
-  {
-    "id": "2026-01-01",
-    "label": "Sample 1",
-    "snapshot": {
-      "fixture_notice": "SYNTHETIC TEST VALUES ONLY; NOT HISTORICAL MARKET DATA",
-      "schema_version": 1,
-      "round_id": "liq-synthetic-a",
-      "instrument": "SYNTHETIC-UNIT-TEST",
-      "series": "SYNTHETIC-1M",
-      "source": "SYNTHETIC-TEST-ONLY",
-      "read_at": "2026-01-01T00:03:00Z",
-      "end_at": "2026-01-01T00:08:00Z",
-      "inventory_complete": true,
-      "bars": [
-        {
-          "time": "2026-01-01T00:00:00Z",
-          "open": 100,
-          "high": 100.5,
-          "low": 99.5,
-          "close": 100
-        },
-        {
-          "time": "2026-01-01T00:01:00Z",
-          "open": 100,
-          "high": 100.25,
-          "low": 99.75,
-          "close": 100
-        },
-        {
-          "time": "2026-01-01T00:02:00Z",
-          "open": 100,
-          "high": 100.5,
-          "low": 99.5,
-          "close": 100
-        }
-      ],
-      "levels": [
-        {
-          "id": "PDH",
-          "label": "Yesterday's high",
-          "kind": "POOL",
-          "side": "BUY",
-          "trigger": 102,
-          "formed_at": "2025-12-31T23:00:00Z",
-          "known_at": "2025-12-31T23:00:00Z",
-          "prior_touch": "NONE"
-        },
-        {
-          "id": "BUY_OTHER",
-          "label": "Near high",
-          "kind": "POOL",
-          "side": "BUY",
-          "trigger": 101,
-          "formed_at": "2025-12-31T23:00:00Z",
-          "known_at": "2025-12-31T23:00:00Z",
-          "prior_touch": "NONE"
-        },
-        {
-          "id": "ASIA_LOW",
-          "label": "Asia low",
-          "kind": "POOL",
-          "side": "SELL",
-          "trigger": 98,
-          "formed_at": "2025-12-31T23:00:00Z",
-          "known_at": "2025-12-31T23:00:00Z",
-          "prior_touch": "NONE"
-        },
-        {
-          "id": "NWOG",
-          "label": "Gap edge",
-          "kind": "GAP",
-          "side": "SELL",
-          "trigger": 97,
-          "near_edge": 97,
-          "far_edge": 96,
-          "live_as_of": true,
-          "formed_at": "2025-12-31T23:00:00Z",
-          "known_at": "2025-12-31T23:00:00Z",
-          "prior_touch": "NONE"
-        },
-        {
-          "id": "MIDNIGHT_OPEN",
-          "label": "Opening price",
-          "kind": "REFERENCE",
-          "side": "BUY",
-          "trigger": 101.5,
-          "formed_at": "2026-01-01T00:00:00Z",
-          "known_at": "2026-01-01T00:00:00Z",
-          "prior_touch": "NONE"
-        }
-      ]
-    },
-    "continuation": {
-      "fixture_notice": "SYNTHETIC TEST VALUES ONLY; NOT HISTORICAL MARKET DATA",
-      "schema_version": 1,
-      "round_id": "liq-synthetic-a",
-      "instrument": "SYNTHETIC-UNIT-TEST",
-      "series": "SYNTHETIC-1M",
-      "source": "SYNTHETIC-TEST-ONLY",
-      "bars": [
-        {
-          "time": "2026-01-01T00:03:00Z",
-          "open": 100,
-          "high": 101.25,
-          "low": 99.25,
-          "close": 101
-        },
-        {
-          "time": "2026-01-01T00:04:00Z",
-          "open": 101,
-          "high": 102,
-          "low": 100.5,
-          "close": 101.75
-        },
-        {
-          "time": "2026-01-01T00:05:00Z",
-          "open": 101.75,
-          "high": 101.75,
-          "low": 98,
-          "close": 99
-        },
-        {
-          "time": "2026-01-01T00:06:00Z",
-          "open": 99,
-          "high": 100,
-          "low": 98.75,
-          "close": 99.5
-        },
-        {
-          "time": "2026-01-01T00:07:00Z",
-          "open": 99.5,
-          "high": 100.25,
-          "low": 99,
-          "close": 100
-        }
-      ]
-    }
-  },
-  {
-    "id": "2026-01-02",
-    "label": "Sample 2",
-    "snapshot": {
-      "fixture_notice": "SYNTHETIC TEST VALUES ONLY; NOT HISTORICAL MARKET DATA",
-      "schema_version": 1,
-      "round_id": "liq-synthetic-b",
-      "instrument": "SYNTHETIC-UNIT-TEST",
-      "series": "SYNTHETIC-1M",
-      "source": "SYNTHETIC-TEST-ONLY",
-      "read_at": "2026-01-02T00:03:00Z",
-      "end_at": "2026-01-02T00:08:00Z",
-      "inventory_complete": true,
-      "bars": [
-        {
-          "time": "2026-01-02T00:00:00Z",
-          "open": 100,
-          "high": 100.5,
-          "low": 99.5,
-          "close": 100
-        },
-        {
-          "time": "2026-01-02T00:01:00Z",
-          "open": 100,
-          "high": 100.25,
-          "low": 99.75,
-          "close": 100
-        },
-        {
-          "time": "2026-01-02T00:02:00Z",
-          "open": 100,
-          "high": 100.5,
-          "low": 99.5,
-          "close": 100
-        }
-      ],
-      "levels": [
-        {
-          "id": "PDH",
-          "label": "Yesterday's high",
-          "kind": "POOL",
-          "side": "BUY",
-          "trigger": 102,
-          "formed_at": "2026-01-01T23:00:00Z",
-          "known_at": "2026-01-01T23:00:00Z",
-          "prior_touch": "NONE"
-        },
-        {
-          "id": "BUY_OTHER",
-          "label": "Near high",
-          "kind": "POOL",
-          "side": "BUY",
-          "trigger": 101,
-          "formed_at": "2026-01-01T23:00:00Z",
-          "known_at": "2026-01-01T23:00:00Z",
-          "prior_touch": "NONE"
-        },
-        {
-          "id": "ASIA_LOW",
-          "label": "Asia low",
-          "kind": "POOL",
-          "side": "SELL",
-          "trigger": 98,
-          "formed_at": "2026-01-01T23:00:00Z",
-          "known_at": "2026-01-01T23:00:00Z",
-          "prior_touch": "NONE"
-        },
-        {
-          "id": "NWOG",
-          "label": "Gap edge",
-          "kind": "GAP",
-          "side": "SELL",
-          "trigger": 97,
-          "near_edge": 97,
-          "far_edge": 96,
-          "live_as_of": true,
-          "formed_at": "2026-01-01T23:00:00Z",
-          "known_at": "2026-01-01T23:00:00Z",
-          "prior_touch": "NONE"
-        },
-        {
-          "id": "MIDNIGHT_OPEN",
-          "label": "Opening price",
-          "kind": "REFERENCE",
-          "side": "BUY",
-          "trigger": 101.5,
-          "formed_at": "2026-01-02T00:00:00Z",
-          "known_at": "2026-01-02T00:00:00Z",
-          "prior_touch": "NONE"
-        }
-      ]
-    },
-    "continuation": {
-      "fixture_notice": "SYNTHETIC TEST VALUES ONLY; NOT HISTORICAL MARKET DATA",
-      "schema_version": 1,
-      "round_id": "liq-synthetic-b",
-      "instrument": "SYNTHETIC-UNIT-TEST",
-      "series": "SYNTHETIC-1M",
-      "source": "SYNTHETIC-TEST-ONLY",
-      "bars": [
-        {
-          "time": "2026-01-02T00:03:00Z",
-          "open": 100,
-          "high": 100.25,
-          "low": 97.75,
-          "close": 98.5
-        },
-        {
-          "time": "2026-01-02T00:04:00Z",
-          "open": 98.5,
-          "high": 99.25,
-          "low": 98.0,
-          "close": 99
-        },
-        {
-          "time": "2026-01-02T00:05:00Z",
-          "open": 99,
-          "high": 102,
-          "low": 98.75,
-          "close": 101.5
-        },
-        {
-          "time": "2026-01-02T00:06:00Z",
-          "open": 101.5,
-          "high": 101.75,
-          "low": 100.5,
-          "close": 101
-        },
-        {
-          "time": "2026-01-02T00:07:00Z",
-          "open": 101,
-          "high": 101.25,
-          "low": 100.25,
-          "close": 100.75
-        }
-      ]
-    }
+// Deterministic invented one-minute prices for a simulated five-session week.
+// This is not NQ history or a market forecast. All future values are public in
+// this static source file, even while the interface hides them until Reveal.
+const MINUTE = 60_000;
+const SESSION_MINUTES = 23 * 60;
+const READ_MINUTE = 14 * 60;
+const FIRST_OPEN = Date.parse('2026-10-04T22:00:00Z');
+const labels = ['Mon 5 Oct', 'Tue 6 Oct', 'Wed 7 Oct', 'Thu 8 Oct', 'Fri 9 Oct'];
+let seed = 0x51a7cafe;
+let previousClose = 20000;
+
+function random() {
+  seed ^= seed << 13;
+  seed ^= seed >>> 17;
+  seed ^= seed << 5;
+  return (seed >>> 0) / 0x100000000;
+}
+
+const tick = (price) => Math.round(price * 4) / 4;
+const stamp = (millis) => new Date(millis).toISOString();
+
+function makeSession(day) {
+  const openAt = FIRST_OPEN + day * 24 * 60 * MINUTE;
+  const bars = [];
+  let price = tick(previousClose + (random() - .5) * 3);
+  for (let minute = 0; minute < SESSION_MINUTES; minute++) {
+    const open = price;
+    // Modest noise throughout, then alternating directional examples after
+    // the checkpoint. This creates varying bars without real data.
+    const drift = minute < READ_MINUTE ? 0 : day % 2 === 0 ? .18 : -.18;
+    const change = (random() + random() + random() + random() - 2) * 1.1 + drift;
+    const close = tick(open + change);
+    const high = tick(Math.max(open, close) + .25 + random() * .75);
+    const low = tick(Math.min(open, close) - .25 - random() * .75);
+    bars.push({ time: stamp(openAt + minute * MINUTE), open, high, low, close });
+    price = close;
   }
-];
+  previousClose = price;
+  return bars;
+}
+
+const sessions = Array.from({ length: 5 }, (_, day) => makeSession(day));
+
+export const weekSummary = Object.freeze({
+  firstBar: sessions[0][0].time,
+  lastBar: sessions.at(-1).at(-1).time,
+  sessionCount: sessions.length,
+  barsPerSession: SESSION_MINUTES,
+  barCount: sessions.reduce((count, bars) => count + bars.length, 0),
+  readMinute: READ_MINUTE,
+  calendar: 'Five simulated 22:00–21:00 UTC sessions, Sunday evening through Friday, with a 21:00–22:00 UTC daily pause.',
+});
+
+export const rounds = sessions.map((bars, day) => {
+  const prefix = bars.slice(0, READ_MINUTE);
+  const continuation = bars.slice(READ_MINUTE);
+  const high = Math.max(...prefix.map((bar) => bar.high));
+  const low = Math.min(...prefix.map((bar) => bar.low));
+  const highAt = prefix.findLast((bar) => bar.high === high).time;
+  const lowAt = prefix.findLast((bar) => bar.low === low).time;
+  const base = {
+    schema_version: 1,
+    round_id: 'liq-sim-week-' + (day + 1),
+    instrument: 'SIM',
+    series: 'SYNTHETIC-1M',
+    source: 'SYNTHETIC-TEST-ONLY',
+  };
+  return {
+    id: '2026-10-' + String(day + 5).padStart(2, '0'),
+    label: labels[day],
+    snapshot: {
+      ...base,
+      fixture_notice: 'SYNTHETIC TEST VALUES ONLY; NOT HISTORICAL MARKET DATA. Demo target catalog: current simulated session high and low as of read.',
+      read_at: continuation[0].time,
+      end_at: stamp(Date.parse(continuation.at(-1).time) + MINUTE),
+      inventory_complete: true,
+      bars: prefix,
+      levels: [
+        { id: 'SESSION_HIGH', label: 'Session high', kind: 'POOL', side: 'BUY', trigger: high, formed_at: highAt, known_at: highAt, prior_touch: 'NONE' },
+        { id: 'SESSION_LOW', label: 'Session low', kind: 'POOL', side: 'SELL', trigger: low, formed_at: lowAt, known_at: lowAt, prior_touch: 'NONE' },
+      ],
+    },
+    continuation: { ...base, fixture_notice: 'SYNTHETIC TEST VALUES ONLY; NOT HISTORICAL MARKET DATA', bars: continuation },
+  };
+});
