@@ -232,10 +232,13 @@ for (const button of document.querySelectorAll('[data-view]')) {
   button.addEventListener('click', () => setView(button.dataset.view));
 }
 el.load.addEventListener('click', openScenario);
+// On a phone the native picker may cover the separate Open button. A completed
+// selection immediately opens that invented round; Open still opens the default.
+el.date.addEventListener('change', openScenario);
 el.target.addEventListener('change', showOpponents);
 el.lock.addEventListener('click', lockChoice);
 el.reveal.addEventListener('click', reveal);
 el.pass.addEventListener('click', pass);
-el.reset.addEventListener('click', reset);
+el.reset.addEventListener('click', () => { reset(); setView('start'); });
 reset();
 setView('start');

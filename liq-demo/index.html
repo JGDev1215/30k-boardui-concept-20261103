@@ -30,7 +30,7 @@
           <section class="card start-form" aria-labelledby="start-form-heading"><div class="card-head"><div><div class="eyebrow">Start</div><h2 id="start-form-heading">Open a checkpoint</h2></div><span class="card-state">SIM · 1 MINUTE</span></div><div class="card-body">
             <label for="analysis-date">Synthetic scenario</label><select id="analysis-date"><option value="2026-01-01">Scenario A · target first</option><option value="2026-01-02">Scenario B · opposing draw first</option></select>
             <div class="fixed-fields"><div><small>Instrument</small><strong>SIM</strong></div><div><small>Checkpoint</small><strong>00:03 UTC</strong></div><div><small>Comparison end</small><strong>00:08 UTC</strong></div></div>
-            <p class="hint">Every value in these scenarios is invented. The preview runs in your browser without an API or database.</p>
+            <p class="hint">Select a scenario to open it immediately, or tap Open checkpoint for the selected one. Every value is invented; no API or database is used.</p>
             <button id="load-checkpoint" type="button" class="primary-action">Open checkpoint <span aria-hidden="true">→</span></button>
           </div></section>
           <section class="card availability-card" aria-labelledby="availability-heading"><div class="card-head"><div><div class="eyebrow">Observed data</div><h2 id="availability-heading">Data availability</h2></div></div><div class="card-body"><div id="start-availability" class="availability-state" role="status">Synthetic demo ready</div><p id="start-coverage" class="hint">Select either scenario to inspect its invented checkpoint.</p><p class="quiet-note">A public static site cannot hide downloadable continuation data or enforce a server-side lock.</p></div></section>
@@ -39,7 +39,7 @@
 
       <section id="view-checkpoint" class="view" aria-labelledby="checkpoint-heading">
         <div class="view-top"><div><div class="eyebrow">Synthetic checkpoint · step 1 of 3</div><h1 id="checkpoint-heading">Invented price at the read.</h1><p>The visible chart stops at the invented read. Choose a draw before the interface reveals the invented later path.</p></div><span id="phase-status" class="phase-status" role="status">Synthetic demo ready</span></div>
-        <div class="checkpoint-bar"><span id="checkpoint-date">Synthetic scenario</span><span>Read 00:03 UTC</span><span>End 00:08 UTC</span><button type="button" data-view="start">Change date</button></div>
+        <div class="checkpoint-bar"><span id="checkpoint-date">Synthetic scenario</span><span>Read 00:03 UTC</span><span>End 00:08 UTC</span><button type="button" data-view="start">Choose scenario</button></div>
         <p class="notice"><strong>Synthetic demo only.</strong> All bars and levels are invented. The lock controls this interface, but static files are publicly downloadable and cannot enforce future-price secrecy.</p>
         <nav class="stage-strip" aria-label="Round stages"><div id="stage-snapshot" class="stage" aria-current="step"><span class="stage-number">1</span><span><strong>Checkpoint</strong><small>Invented prices</small></span></div><div id="stage-choice" class="stage" data-state="locked"><span class="stage-number">2</span><span><strong>Choose and lock</strong><small>Target and opponents</small></span></div><div id="stage-reveal" class="stage" data-state="locked"><span class="stage-number">3</span><span><strong>Reveal</strong><small>Outcome after lock</small></span></div></nav>
 
