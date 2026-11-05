@@ -52,15 +52,18 @@ footer{margin-top:18px;color:#8da9b1;font-size:.68rem}
 .target-list li{padding:0}
 .target-list button{display:block;width:100%;min-height:48px;text-align:left;background:#102b32;border-color:#436a70;color:#d3e7e9;font-weight:700}
 .target-list button[aria-pressed="true"]{background:#176652;border-color:var(--mint);color:#fff}
+#eligible-list button{background:#102b32;border-color:#436a70;color:#d3e7e9}
+#eligible-list button[aria-pressed="true"]{background:#176652;border-color:var(--mint);color:#fff}
 .target-list button:disabled{opacity:.72}
 .choice-card .subhead{margin-top:16px}
 .opponents{min-height:44px}
 .actions{margin-top:16px}
 .actions #lock,.actions #reveal{flex:1 1 100%;font-size:.85rem;min-height:48px}
 .actions #pass,.actions #reset{flex:1 1 calc(50% - 4px);min-height:44px}
-.result.UNAVAILABLE{display:none}
+.result.READY{display:none}
 .result{margin-top:12px;padding:14px}
 .result strong{font-size:1.1rem}
+.checkpoint-bar .checkpoint-price{color:var(--mint);font-variant-numeric:tabular-nums}
 .sample-details{margin-top:13px;color:#b9cdd1;font-size:.73rem}
 .sample-details summary,.status-card summary{cursor:pointer;color:#bcf0dd;font-weight:750}
 .sample-details h3{margin:13px 0 4px}

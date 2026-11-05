@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LIQ · practice demo</title>
-  <link rel="stylesheet" href="./style.css?v=liq26">
+  <link rel="stylesheet" href="./style.css?v=liq28">
 </head>
 <body>
   <header class="masthead"><div class="masthead-brand"><strong>LIQ</strong><span><b>Practice game</b><small>Five made-up trading days</small></span></div></header>
@@ -18,13 +18,10 @@
     </aside>
     <main class="main-content">
       <section id="view-start" class="view" aria-labelledby="start-heading" hidden>
-        <div class="start-hero"><h1 id="start-heading">Pick a trading day</h1><p>Five made-up sessions with 6,900 one-minute bars. Pick a target, lock it, then reveal.</p></div>
+        <div class="start-hero"><h1 id="start-heading">Practice at 06:46 London</h1><p>See the market as it stood then. Pick a target, lock your choice, and reveal what happened next.</p></div>
         <section class="card start-form" aria-labelledby="start-form-heading"><div class="card-body">
-          <h2 id="start-form-heading">Choose a day</h2>
-          <label for="analysis-date">Trading day</label>
-          <select id="analysis-date"><option value="2026-10-05">Mon 5 Oct</option><option value="2026-10-06">Tue 6 Oct</option><option value="2026-10-07">Wed 7 Oct</option><option value="2026-10-08">Thu 8 Oct</option><option value="2026-10-09">Fri 9 Oct</option></select>
-          <p class="hint">Changing the day opens it right away.</p>
-          <button id="load-checkpoint" type="button" class="primary-action">Play selected day</button>
+          <h2 id="start-form-heading">Five sample scenarios</h2>
+          <button id="load-checkpoint" type="button" class="primary-action">Play</button>
           <div id="start-availability" class="sr-only" role="status">Ready</div>
           <div id="start-coverage" class="sr-only"></div>
         </div></section>
@@ -32,24 +29,24 @@
       </section>
 
       <section id="view-checkpoint" class="view" aria-labelledby="checkpoint-heading">
-        <div class="view-top"><div><h1 id="checkpoint-heading">Pick a target</h1><p>Which level will price touch before the other side?</p></div><span id="phase-status" class="phase-status" role="status">Choose a day</span></div>
-        <div class="checkpoint-bar"><strong id="checkpoint-date">Trading day</strong><button type="button" data-view="start">Change day</button></div>
+        <div class="view-top"><div><h1 id="checkpoint-heading">As of 06:46 London</h1><p>Which target will price touch before the other side?</p></div><span id="phase-status" class="phase-status" role="status">Ready to play</span></div>
+        <div class="checkpoint-bar"><strong id="checkpoint-date">Scenario</strong><strong id="checkpoint-price" class="checkpoint-price">Latest close —</strong></div>
         <p class="simple-disclosure">Made-up prices. This public demo cannot truly hide the future path.</p>
         <nav class="stage-strip sr-only" aria-label="Round stages"><div id="stage-snapshot" class="stage"></div><div id="stage-choice" class="stage"></div><div id="stage-reveal" class="stage"></div></nav>
         <div class="workspace">
           <div class="decision-stack">
             <section class="card choice-card" aria-labelledby="choice-heading"><div class="card-head"><h2 id="choice-heading">Tap one target</h2></div><div class="card-body">
-              <ul id="eligible-list" class="target-list" aria-label="Targets"><li>Choose a sample to see targets.</li></ul>
+              <ul id="eligible-list" class="target-list" aria-label="Targets"><li>Press Play to see targets.</li></ul>
               <select id="target" hidden disabled aria-hidden="true"><option value="">Tap a target</option></select>
               <textarea id="rationale" hidden disabled></textarea>
-              <div class="subhead">Other side</div><div id="opponents" class="opponents" role="status" aria-live="polite">Choose a sample first.</div>
-              <div class="actions"><button id="lock" type="button" disabled>Lock choice</button><button id="reveal" type="button" class="secondary" disabled>Reveal result</button><button id="pass" type="button" class="secondary" disabled>Skip</button><button id="reset" type="button" class="quiet">New round</button></div>
+              <div class="subhead">Other side</div><div id="opponents" class="opponents" role="status" aria-live="polite">Press Play first.</div>
+              <div class="actions"><button id="lock" type="button" disabled>Lock choice</button><button id="reveal" type="button" class="secondary" disabled>Reveal result</button><button id="pass" type="button" class="secondary" disabled>Skip</button><button id="reset" type="button" class="quiet">Next scenario</button></div>
               <div id="locked" class="locked" aria-live="polite"></div>
               <div id="result" class="result UNAVAILABLE" role="status" aria-live="polite"><strong>READY</strong><span>Pick a target to begin.</span></div>
             </div></section>
           </div>
           <section class="card snapshot-card" aria-labelledby="snapshot-heading"><div class="card-head"><h2 id="snapshot-heading">Price chart</h2><span class="card-state">BEFORE</span></div><div class="card-body">
-            <div class="chart-head"><span class="eyebrow">Made-up prices · before choice</span><span class="chart-legend">Read 12:00 UTC</span></div>
+            <div class="chart-head"><span class="eyebrow">Made-up prices · before choice</span><span class="chart-legend">06:46 London</span></div>
             <div class="chart-wrap" role="region" tabindex="0" aria-label="Made-up price chart. Scroll sideways for detail."><svg id="chart" role="img" aria-label="No chart loaded."></svg></div>
             <p class="chart-scroll-hint">Swipe chart sideways for detail.</p>
             <details class="sample-details"><summary>Sample details</summary><div id="metadata" class="metadata" aria-live="polite"></div><h3>Reference only</h3><ul id="context-list"><li>Choose a sample first.</li></ul></details>
@@ -58,11 +55,11 @@
       </section>
 
       <section id="view-status" class="view" aria-labelledby="status-heading" hidden><div class="view-top"><div><h1 id="status-heading">About this demo</h1><p>Practice the decision flow with made-up prices.</p></div></div>
-        <section class="card status-card"><div class="card-body"><p id="week-summary">Five invented 23-hour sessions, Sunday 4 Oct 22:00 UTC through Friday 9 Oct 21:00 UTC: 6,900 consecutive one-minute bars within sessions, with a one-hour daily pause. Each day has one playable checkpoint at 12:00 UTC, using the session high and low known then.</p><p>All prices and levels are invented. This public static page lets anyone inspect future data before a choice. It does not place trades or save decisions.</p><details><summary>Technical sample info</summary><p id="status-meta">No day open.</p><p id="status-coverage">—</p><p id="status-identity">Invented</p><p id="status-inventory">Demo only</p><p id="status-reason">No real market data.</p></details></div></section>
+        <section class="card status-card"><div class="card-body"><p id="week-summary">Five invented 23-hour sessions, Sunday 4 Oct 22:00 UTC through Friday 9 Oct 21:00 UTC: 6,900 consecutive one-minute bars within sessions, with a one-hour daily pause. Each scenario freezes at 06:46 London. The demo compares targets until that simulated session ends; no hit is unresolved.</p><p>All prices and levels are invented. This public static page lets anyone inspect future data before a choice. It does not place trades or save decisions.</p><details><summary>Technical sample info</summary><p id="status-meta">No scenario open.</p><p id="status-coverage">—</p><p id="status-identity">Invented</p><p id="status-inventory">Demo only</p><p id="status-reason">No real market data.</p></details></div></section>
       </section>
       <footer>LIQ practice demo · invented prices only</footer>
     </main>
   </div>
-  <script type="module" src="./src/app.js?v=liq26"></script>
+  <script type="module" src="./src/app.js?v=liq28"></script>
 </body>
 </html>
