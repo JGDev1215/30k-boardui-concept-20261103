@@ -237,6 +237,8 @@ function reveal() {
             : 'This sample cannot be scored.';
   result(label, message);
   chart([...round.snapshot.bars, ...selectedFixture.continuation.bars], true);
+  const chosen = round.eligibleLevels.find((level) => level.id === lock.targetId);
+  el.locked.textContent = `Your choice: ${chosen?.label ?? 'target'}.`;
   el.reveal.disabled = true;
   el.reveal.hidden = true;
   el.statusReason.textContent = `${label} in a made-up example.`;
