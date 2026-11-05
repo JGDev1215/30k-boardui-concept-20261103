@@ -109,6 +109,9 @@ function chart(bars, revealed = false) {
 
 function showOpponents() {
   if (!round) return;
+  for (const button of el.eligible.querySelectorAll('button[data-target-id]')) {
+    button.setAttribute('aria-pressed', String(button.dataset.targetId === el.target.value));
+  }
   const target = round.eligibleLevels.find((level) => level.id === el.target.value);
   if (!target) {
     el.opponents.textContent = 'Choose an invented target.';
@@ -159,7 +162,11 @@ function openScenario() {
   for (const level of round.eligibleLevels) {
     el.target.add(new Option(`${level.label} · ${level.side} · ${level.trigger.toFixed(2)}`, level.id));
     const row = document.createElement('li');
-    row.textContent = `${level.label} · ${level.side} · ${level.trigger.toFixed(2)}`;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.targetId = level.id;
+    button.textContent = `${level.label} · ${level.side} · ${level.trigger.toFixed(2)}`;
+    row.append(button);
     el.eligible.append(row);
   }
   for (const level of round.contextLevels) {
@@ -198,6 +205,7 @@ function lockChoice() {
     lockedAt: new Date().toISOString(),
   });
   el.target.disabled = true;
+  for (const button of el.eligible.querySelectorAll('button')) button.disabled = true;
   el.rationale.disabled = true;
   el.lock.disabled = true;
   el.pass.disabled = true;
@@ -222,6 +230,7 @@ function pass() {
   if (!round || lock) return;
   result('PASS', 'No target selected in this invented round. Open a scenario again to practice.');
   el.target.disabled = true;
+  for (const button of el.eligible.querySelectorAll('button')) button.disabled = true;
   el.rationale.disabled = true;
   el.lock.disabled = true;
   el.pass.disabled = true;
@@ -236,6 +245,12 @@ el.load.addEventListener('click', openScenario);
 // selection immediately opens that invented round; Open still opens the default.
 el.date.addEventListener('change', openScenario);
 el.target.addEventListener('change', showOpponents);
+el.eligible.addEventListener('click', (event) => {
+  const button = event.target.closest('button[data-target-id]');
+  if (!button || !round || lock || el.target.disabled) return;
+  el.target.value = button.dataset.targetId;
+  showOpponents();
+});
 el.lock.addEventListener('click', lockChoice);
 el.reveal.addEventListener('click', reveal);
 el.pass.addEventListener('click', pass);
